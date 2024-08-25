@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface Quiz extends Document {
+export interface Quiz extends Document {
   id: string;
   title: string;
   description: string;
@@ -18,4 +18,4 @@ const quizSchema: Schema = new Schema({
   totalQuestions: { type: Number, required: true },
 });
 
-export const quizModel = mongoose.model<Quiz>('Quiz', quizSchema);
+export const QuizModel = mongoose.model<Quiz>('Quiz', quizSchema);
