@@ -47,7 +47,8 @@ export const mockQuizzes = [
           { id: 'opt2', text: 'Blocks the event loop.' },
           { id: 'opt3', text: 'Executes code immediately.' },
         ],
-        explanation: '`process.nextTick()` defers the execution of a callback function until the next event loop iteration.',
+        explanation:
+          '`process.nextTick()` defers the execution of a callback function until the next event loop iteration.',
       },
     ],
     isPaid: true,

@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import {quizController} from '../controllers'; // Adjust the path as needed
+
+import { quizController } from '../controllers';
+
+// Adjust the path as needed
 
 const router = Router();
 

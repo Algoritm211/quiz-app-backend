@@ -1,1 +1,1 @@
-export * from './quiz-router'
+export * from './quiz-router';

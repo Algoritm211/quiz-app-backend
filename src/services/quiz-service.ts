@@ -1,4 +1,4 @@
-import {Quiz, QuizModel} from '../models';
+import { Quiz, QuizModel } from '../models';
 
 class QuizService {
   async getQuizzes() {

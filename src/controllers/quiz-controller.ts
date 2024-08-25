@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
-import {quizService} from '../services'; // Adjust the path as needed
+
+import { quizService } from '../services';
+
+// Adjust the path as needed
 
 class QuizController {
-
   // Get all quizzes
   public getQuizzes = async (req: Request, res: Response): Promise<void> => {
     try {

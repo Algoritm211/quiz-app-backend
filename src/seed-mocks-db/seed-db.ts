@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
+
+import { QuizModel } from '../models';
 import { mockQuizzes } from './mocks/mock-quizzes';
-import {QuizModel} from "../models"; // Adjust the path as needed
+
+// Adjust the path as needed
 
 export async function seedDatabase() {
   const mongoUri = process.env.DB_URL as string;
 
-
   try {
     await mongoose.connect(mongoUri, {
-      ssl: false
+      ssl: false,
     });
     await mongoose.connection.dropDatabase();
     console.log('Connected to MongoDB');
