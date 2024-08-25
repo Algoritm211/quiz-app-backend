@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
@@ -13,7 +14,8 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
-app.use(express.json()); // For parsing application/json
+app.use(cors());
+app.use(express.json());
 
 // Use the quiz routes
 app.use('/api/quizzes', quizRouter);

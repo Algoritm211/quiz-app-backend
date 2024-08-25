@@ -1,10 +1,10 @@
 export const mockQuizzes = [
   {
     id: 'quiz1',
-    title: 'JavaScript Basics',
-    description: 'Test your knowledge of JavaScript basics.',
-    logoUrl: 'https://example.com/js-basics.png',
-    totalQuestions: 2, // Add totalQuestions field
+    title: 'JS code challenge',
+    description: 'A collection of code questions for EVERY interview',
+    logoUrl: '/quizzes/js-quiz-1.png',
+    totalQuestions: 2,
     questions: [
       {
         id: 'q1',
@@ -35,8 +35,8 @@ export const mockQuizzes = [
     id: 'quiz2',
     title: 'Advanced Node.js',
     description: 'Advanced topics in Node.js.',
-    logoUrl: 'https://example.com/nodejs.png',
-    totalQuestions: 1, // Add totalQuestions field
+    logoUrl: '/quizzes/js-quiz-2.jpeg',
+    totalQuestions: 1,
     questions: [
       {
         id: 'q1',
