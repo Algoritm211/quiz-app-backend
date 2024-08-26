@@ -16,40 +16,11 @@ class QuizController {
   };
 
   // Get a single quiz by ID
-  public getQuizById = async (req: Request, res: Response): Promise<void> => {
+  public getQuizById = async (req: Request<{ quizId: string }>, res: Response): Promise<void> => {
+    const { quizId } = req.params;
     try {
-      const quiz = await quizService.getQuizById(req.params.id);
+      const quiz = await quizService.getQuizById(quizId);
       res.json(quiz);
-    } catch (error) {
-      res.status(404).json({ message: (error as Error).message });
-    }
-  };
-
-  // Create a new quiz
-  public createQuiz = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const quiz = await quizService.createQuiz(req.body);
-      res.status(201).json(quiz);
-    } catch (error) {
-      res.status(400).json({ message: (error as Error).message });
-    }
-  };
-
-  // Update an existing quiz
-  public updateQuiz = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const quiz = await quizService.updateQuiz(req.params.id, req.body);
-      res.json(quiz);
-    } catch (error) {
-      res.status(404).json({ message: (error as Error).message });
-    }
-  };
-
-  // Delete a quiz
-  public deleteQuiz = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const result = await quizService.deleteQuiz(req.params.id);
-      res.json(result);
     } catch (error) {
       res.status(404).json({ message: (error as Error).message });
     }

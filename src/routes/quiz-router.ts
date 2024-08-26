@@ -8,9 +8,6 @@ const router = Router();
 
 // Routes
 router.get('/', quizController.getQuizzes);
-router.get('/:id', quizController.getQuizById);
-router.post('/', quizController.createQuiz);
-router.put('/:id', quizController.updateQuiz);
-router.delete('/:id', quizController.deleteQuiz);
+router.get('/:quizId', quizController.getQuizById);
 
 export const quizRouter = router;

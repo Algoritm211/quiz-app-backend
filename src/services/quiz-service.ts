@@ -3,7 +3,7 @@ import { Quiz, QuizModel } from '../models';
 class QuizService {
   async getQuizzes() {
     try {
-      return await QuizModel.find();
+      return await QuizModel.find().select(['-questions']);
     } catch (error) {
       console.log(error);
       throw new Error('Error fetching quizzes');
@@ -12,7 +12,7 @@ class QuizService {
 
   async getQuizById(id: string) {
     try {
-      const quiz = await QuizModel.findOne({ id });
+      const quiz = await QuizModel.findOne({ _id: id });
       if (!quiz) {
         throw new Error('Quiz not found');
       }
