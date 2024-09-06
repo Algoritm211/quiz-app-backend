@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
 import { quizRouter } from './routes';
+import { usersRouter } from './routes';
 import { seedDatabase } from './seed-mocks-db/seed-db';
 
 dotenv.config({
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // Use the quiz routes
 app.use('/api/quizzes', quizRouter);
+app.use('/api/users', usersRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript + Node.js + Express!');
@@ -40,4 +42,4 @@ const start = async () => {
   }
 };
 
-start();
+void start();

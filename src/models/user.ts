@@ -7,9 +7,10 @@ interface QuizResult {
 }
 
 interface UserProfile extends Document {
-  id: string;
   name: string;
+  telegramId: string;
   completedQuizzes: QuizResult[];
+  createdAt: string;
 }
 
 const quizResultSchema: Schema = new Schema({
@@ -18,10 +19,13 @@ const quizResultSchema: Schema = new Schema({
   totalQuestions: { type: Number, required: true },
 });
 
-const userProfileSchema: Schema = new Schema({
-  id: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  completedQuizzes: { type: [quizResultSchema], required: true },
-});
+const userProfileSchema: Schema = new Schema(
+  {
+    telegramId: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    completedQuizzes: { type: [quizResultSchema], required: true, default: [] },
+  },
+  { timestamps: true }
+);
 
-export const userModel = mongoose.model<UserProfile>('UserProfile', userProfileSchema);
+export const UserModel = mongoose.model<UserProfile>('UserProfile', userProfileSchema);
