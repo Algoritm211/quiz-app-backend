@@ -1,5 +1,5 @@
 import { CreateUserDTO, GetUserDTO } from '../dto/users';
-import { UserModel } from '../models';
+import { QuizModel, QuizResultModel, UserModel } from '../models';
 
 class UsersService {
   async getUserByTgId(telegramId: string): Promise<GetUserDTO> {
@@ -29,6 +29,41 @@ class UsersService {
     } catch (error) {
       console.log(error);
       throw new Error('Error while creating user');
+    }
+  }
+
+  async addQuizToUserProfile(userTgId: string, quizId: string) {
+    try {
+      const quiz = await QuizModel.findById(quizId);
+      if (!quiz) {
+        throw new Error('You are trying to add quiz which does not exist');
+      }
+      const newQuizResult = new QuizResultModel({
+        quizId: quiz._id,
+        quizTitle: quiz.title,
+      });
+
+      const user = await UserModel.findOne({ telegramId: userTgId });
+      if (!user) {
+        throw new Error(`User with TG id ${userTgId} does not exist`);
+      }
+      const existingQuizIndex = user.completedQuizzes.findIndex((quizResult) => {
+        return quizResult.quizId === quizResult.quizId?.toString();
+      });
+
+      if (existingQuizIndex > -1) {
+        // Replace if it exists
+        user.completedQuizzes[existingQuizIndex] = newQuizResult;
+      } else {
+        // Add to the array if it doesn't exist
+        user.completedQuizzes.push(newQuizResult);
+      }
+
+      await user.save();
+      return user.toObject();
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error while adding question to users profile');
     }
   }
 }

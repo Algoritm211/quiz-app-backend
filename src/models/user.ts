@@ -1,9 +1,10 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface QuizResult {
+interface QuizResult extends Document {
   quizId: string;
-  correctAnswersPercentage: number;
-  totalQuestions: number;
+  quizTitle: string;
+  answers: number;
+  createdAt: string;
 }
 
 interface UserProfile extends Document {
@@ -13,11 +14,22 @@ interface UserProfile extends Document {
   createdAt: string;
 }
 
-const quizResultSchema: Schema = new Schema({
-  quizId: { type: String, required: true, ref: 'Quiz' },
-  correctAnswersPercentage: { type: Number, required: true },
-  totalQuestions: { type: Number, required: true },
+const answerSchema: Schema = new Schema({
+  optionId: { type: String, required: true },
+  questionText: { type: String, required: true },
+  isCorrect: { type: Boolean, required: true },
+  correctAnswer: { type: String, required: true },
+  userAnswer: { type: String, required: true },
 });
+
+const quizResultSchema: Schema = new Schema(
+  {
+    quizId: { type: String, required: true, ref: 'Quiz' },
+    quizTitle: { type: String, required: true },
+    answers: { type: [answerSchema], required: true, default: [] },
+  },
+  { timestamps: true }
+);
 
 const userProfileSchema: Schema = new Schema(
   {
@@ -27,5 +39,7 @@ const userProfileSchema: Schema = new Schema(
   },
   { timestamps: true }
 );
+
+export const QuizResultModel = mongoose.model<QuizResult>('QuizResult', quizResultSchema);
 
 export const UserModel = mongoose.model<UserProfile>('UserProfile', userProfileSchema);

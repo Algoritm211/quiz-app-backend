@@ -10,3 +10,7 @@ export interface GetUserDTO {
   joinedDate: string;
   completedQuizzes: [];
 }
+
+export interface AddQuizToUserDTO {
+  quizId: string;
+}
