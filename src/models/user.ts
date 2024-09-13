@@ -1,9 +1,17 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
+interface QuizAnswer {
+  questionId: string;
+  questionText: string;
+  isCorrect: boolean;
+  correctAnswer: string;
+  userAnswer: string;
+}
+
 interface QuizResult extends Document {
   quizId: string;
   quizTitle: string;
-  answers: number;
+  answers: QuizAnswer[];
   createdAt: string;
 }
 
@@ -15,7 +23,7 @@ interface UserProfile extends Document {
 }
 
 const answerSchema: Schema = new Schema({
-  optionId: { type: String, required: true },
+  questionId: { type: String, required: true, ref: 'Question' },
   questionText: { type: String, required: true },
   isCorrect: { type: Boolean, required: true },
   correctAnswer: { type: String, required: true },
@@ -39,6 +47,8 @@ const userProfileSchema: Schema = new Schema(
   },
   { timestamps: true }
 );
+
+export const UserQuizAnswerModel = mongoose.model<QuizAnswer>('QuizAnswer', answerSchema);
 
 export const QuizResultModel = mongoose.model<QuizResult>('QuizResult', quizResultSchema);
 

@@ -14,3 +14,10 @@ export interface GetUserDTO {
 export interface AddQuizToUserDTO {
   quizId: string;
 }
+
+export interface AddQuizAnswerDTO {
+  quizId: string;
+  questionId: string;
+  usersAnswerId: string;
+  telegramId: string;
+}

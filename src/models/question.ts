@@ -1,11 +1,11 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface AnswerOption {
+interface AnswerOption extends Document {
   text: string;
   isCorrect: boolean;
 }
 
-interface Question extends Document {
+export interface Question extends Document {
   text: string;
   codeSnippet?: string;
   options: AnswerOption[];

@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-import { questionSchema } from './question';
+import { Question, questionSchema } from './question';
 
 export interface Quiz extends Document {
   title: string;
   description: string;
   logoUrl?: string;
   isPaid: boolean;
-  totalQuestions: number;
+  questions: Question[];
 }
 
 const quizSchema: Schema = new Schema({
