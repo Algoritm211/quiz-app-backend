@@ -1,16 +1,38 @@
 import { AddQuizAnswerDTO, CreateUserDTO, GetUserDTO } from '../dto/users';
+import { QuizResult } from '../interfaces';
 import { QuizModel, QuizResultModel, UserModel, UserQuizAnswerModel } from '../models';
 
 class UsersService {
   async getUserByTgId(telegramId: string): Promise<GetUserDTO> {
     try {
       const user = await UserModel.findOne({ telegramId: telegramId })!;
+
+      if (!user) throw new Error(`User with telegramId ${telegramId} not found does not exist`);
+
+      const completedQuizzes =
+        user.completedQuizzes.map<QuizResult>((quiz) => {
+          const totalQuestions = quiz.totalQuestions;
+
+          const isCompleted = quiz.answers.length === quiz.totalQuestions;
+          const progressPercentage = Number(
+            ((quiz.answers.length * 100) / totalQuestions).toFixed(2)
+          );
+
+          return {
+            _id: quiz.quizId?.toString() as string,
+            isCompleted,
+            totalQuestions,
+            progressPercentage,
+            title: quiz.quizTitle,
+          };
+        }) || [];
+
       return {
         _id: user?._id,
         name: user?.name,
         telegramId: user?.telegramId,
         joinedDate: user?.createdAt,
-        completedQuizzes: user?.completedQuizzes,
+        completedQuizzes,
       } as GetUserDTO;
     } catch (error) {
       console.log(error);
@@ -41,13 +63,14 @@ class UsersService {
       const newQuizResult = new QuizResultModel({
         quizId: quiz._id,
         quizTitle: quiz.title,
+        totalQuestions: quiz.questions.length,
       });
 
       const user = await UserModel.findOne({ telegramId: userTgId });
       if (!user) {
         throw new Error(`User with TG id ${userTgId} does not exist`);
       }
-      // TODO fix logic
+
       const existingQuizIndex = user.completedQuizzes.findIndex((quizResult) => {
         return quizResult.quizId === quizId;
       });

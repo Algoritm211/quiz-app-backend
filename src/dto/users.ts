@@ -1,3 +1,5 @@
+import { QuizResult } from '../interfaces';
+
 export interface CreateUserDTO {
   telegramId: string;
   name: string;
@@ -8,7 +10,7 @@ export interface GetUserDTO {
   telegramId: string;
   name: string;
   joinedDate: string;
-  completedQuizzes: [];
+  completedQuizzes: QuizResult[];
 }
 
 export interface AddQuizToUserDTO {

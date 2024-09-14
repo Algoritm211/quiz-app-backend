@@ -13,6 +13,7 @@ interface QuizResult extends Document {
   quizTitle: string;
   answers: QuizAnswer[];
   createdAt: string;
+  totalQuestions: number;
 }
 
 interface UserProfile extends Document {
@@ -34,6 +35,7 @@ const quizResultSchema: Schema = new Schema(
   {
     quizId: { type: String, required: true, ref: 'Quiz' },
     quizTitle: { type: String, required: true },
+    totalQuestions: { type: Number, required: true },
     answers: { type: [answerSchema], required: true, default: [] },
   },
   { timestamps: true }
