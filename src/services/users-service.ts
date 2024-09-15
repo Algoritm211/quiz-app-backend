@@ -1,5 +1,4 @@
 import { AddQuizAnswerDTO, CreateUserDTO, GetUserDTO } from '../dto/users';
-import { QuizResult } from '../interfaces';
 import { QuizModel, QuizResultModel, UserModel, UserQuizAnswerModel } from '../models';
 
 class UsersService {
@@ -9,31 +8,7 @@ class UsersService {
 
       if (!user) throw new Error(`User with telegramId ${telegramId} not found does not exist`);
 
-      const completedQuizzes =
-        user.completedQuizzes.map<QuizResult>((quiz) => {
-          const totalQuestions = quiz.totalQuestions;
-
-          const isCompleted = quiz.answers.length === quiz.totalQuestions;
-          const progressPercentage = Number(
-            ((quiz.answers.length * 100) / totalQuestions).toFixed(2)
-          );
-
-          return {
-            _id: quiz.quizId?.toString() as string,
-            isCompleted,
-            totalQuestions,
-            progressPercentage,
-            title: quiz.quizTitle,
-          };
-        }) || [];
-
-      return {
-        _id: user?._id,
-        name: user?.name,
-        telegramId: user?.telegramId,
-        joinedDate: user?.createdAt,
-        completedQuizzes,
-      } as GetUserDTO;
+      return user.toObject();
     } catch (error) {
       console.log(error);
       throw new Error('Error getting user by Id');

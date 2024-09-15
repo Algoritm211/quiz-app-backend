@@ -8,7 +8,7 @@ interface QuizAnswer {
   userAnswer: string;
 }
 
-interface QuizResult extends Document {
+export interface QuizResult extends Document {
   quizId: string;
   quizTitle: string;
   answers: QuizAnswer[];

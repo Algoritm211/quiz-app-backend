@@ -1,4 +1,4 @@
-import { QuizResult } from '../interfaces';
+import {QuizResult} from "../models";
 
 export interface CreateUserDTO {
   telegramId: string;
