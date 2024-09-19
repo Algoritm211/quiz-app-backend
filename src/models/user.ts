@@ -29,6 +29,8 @@ const answerSchema: Schema = new Schema({
   isCorrect: { type: Boolean, required: true },
   correctAnswer: { type: String, required: true },
   userAnswer: { type: String, required: true },
+  correctAnswerId: { type: String, required: true, ref: 'Answer' },
+  userAnswerId: { type: String, required: true, ref: 'Answer' },
 });
 
 const quizResultSchema: Schema = new Schema(

@@ -24,3 +24,4 @@ export const questionSchema: Schema = new Schema({
 });
 
 export const questionModel = mongoose.model<Question>('Question', questionSchema);
+export const answerOptionModel = mongoose.model<Question>('AnswerOption', answerOptionSchema);

@@ -1,4 +1,4 @@
-import {QuizResult} from "../models";
+import { QuizResult } from '../models';
 
 export interface CreateUserDTO {
   telegramId: string;
@@ -20,6 +20,6 @@ export interface AddQuizToUserDTO {
 export interface AddQuizAnswerDTO {
   quizId: string;
   questionId: string;
-  usersAnswerId: string;
+  userAnswerId: string;
   telegramId: string;
 }

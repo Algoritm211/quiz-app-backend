@@ -67,7 +67,7 @@ class UsersService {
     }
   }
 
-  async addQuizAnswer({ quizId, usersAnswerId, questionId, telegramId }: AddQuizAnswerDTO) {
+  async addQuizAnswer({ quizId, userAnswerId, questionId, telegramId }: AddQuizAnswerDTO) {
     try {
       const quiz = await QuizModel.findById(quizId);
       if (!quiz) throw new Error('You are trying to modify quiz which does not exist');
@@ -76,7 +76,7 @@ class UsersService {
       if (!question) throw new Error(`Question with questionId ${questionId} does not exist`);
 
       const usersAnswer = question.options.find(
-        (option) => option._id?.toString() === usersAnswerId
+        (option) => option._id?.toString() === userAnswerId
       );
       const correctAnswer = question.options.find((option) => option.isCorrect);
 
@@ -86,6 +86,8 @@ class UsersService {
         isCorrect: usersAnswer?._id?.toString() === correctAnswer?.id.toString(),
         correctAnswer: correctAnswer?.text,
         userAnswer: usersAnswer?.text,
+        correctAnswerId: correctAnswer?.id,
+        userAnswerId: usersAnswer?._id,
       });
 
       const user = await UserModel.findOne({ telegramId });

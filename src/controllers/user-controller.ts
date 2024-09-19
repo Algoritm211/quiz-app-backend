@@ -49,12 +49,12 @@ class UsersController {
     res: Response
   ): Promise<void> => {
     const { id: userId } = req.params;
-    const { quizId, usersAnswerId, questionId } = req.body;
+    const { quizId, userAnswerId, questionId } = req.body;
 
     try {
       const user = await usersService.addQuizAnswer({
         quizId,
-        usersAnswerId,
+        userAnswerId,
         questionId,
         telegramId: userId,
       });
